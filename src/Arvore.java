@@ -1,11 +1,42 @@
 public class Arvore {
     public No raiz;
-    public No filho;
 
-    public Arvore(No raiz, No filho) {
+    public Arvore(No raiz) {
         this.raiz = raiz;
-        this.filho = null;
     }
+
+    public int contarNosArvore() {
+        No aux = raiz;
+        if (aux == null) {
+            return 0;
+        }
+        int contador = 0;
+        while (aux != null) {
+            if (aux.getNoDireito() != null) {
+                aux = aux.getNoDireito();
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public void percorrerPreOrdem() {
+        No aux = raiz;
+        while (aux != null && raiz != null) {
+            System.out.println(aux);
+            if (aux.getNoEsquerdo() != null) {
+                aux = aux.getNoEsquerdo();
+            }
+            else if (aux.getNoDireito().getNoDireito() != null) {
+                aux = aux.getNoDireito().getNoDireito();
+            }
+
+        }
+
+        if (aux != )
+    }
+
+
 
     public No getRaiz() {
         return raiz;
@@ -15,11 +46,4 @@ public class Arvore {
         this.raiz = raiz;
     }
 
-    public No getFilho() {
-        return filho;
-    }
-
-    public void setFilho(No filho) {
-        this.filho = filho;
-    }
 }
