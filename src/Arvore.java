@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Arvore {
     public No raiz;
 
@@ -5,37 +8,82 @@ public class Arvore {
         this.raiz = raiz;
     }
 
-    public int contarNosArvore() {
-        No aux = raiz;
-        if (aux == null) {
+
+
+    public int contarNosArvore(No raiz) {
+        if(raiz == null) {
             return 0;
         }
-        int contador = 0;
-        while (aux != null) {
-            if (aux.getNoDireito() != null) {
-                aux = aux.getNoDireito();
-                contador++;
-            }
-        }
-        return contador;
+        return 1 + contarNosArvore(raiz.getNoEsquerdo()) + contarNosArvore(raiz.getNoDireito());
     }
 
-    public void percorrerPreOrdem() {
-        No aux = raiz;
-        while (aux != null && raiz != null) {
-            System.out.println(aux);
-            if (aux.getNoEsquerdo() != null) {
-                aux = aux.getNoEsquerdo();
-            }
-            else if (aux.getNoDireito().getNoDireito() != null) {
-                aux = aux.getNoDireito().getNoDireito();
-            }
+    public int contarNosArvoreSemRec(No raiz) {
+        if (raiz == null) {
+            return 0;
+        }
+        LinkedList<No> nosArvore = new LinkedList<>();
+        nosArvore.add(raiz);
+        while(!nosArvore.isEmpty()) {
+            No n = nosArvore.removeFirst();
+            if (raiz.getNoEsquerdo() != null) {
+                raiz = raiz.getNoEsquerdo();
+                nosArvore.add(raiz);
 
+            }
+        }
+        while (raiz.getNoEsquerdo() != null) {
+            if()
+            raiz = raiz.getNoEsquerdo();
+            nosArvore.add(raiz);
         }
 
-        if (aux != )
+        return nosArvore.size();
     }
 
+    public void percorrerPreOrdem(No raiz) {
+        if (raiz != null) {
+            System.out.println(raiz.conteudo);
+            percorrerPreOrdem(raiz.getNoEsquerdo());
+            percorrerPreOrdem(raiz.getNoDireito());
+        }
+    }
+    public void percorrerPreOrdemSemRec(No raiz) {
+        if (raiz != null) {
+
+        }
+    }
+    public void percorrerEmOrdem(No raiz) {
+        if (raiz != null) {
+            percorrerEmOrdem(raiz.getNoEsquerdo());
+            System.out.println(raiz.conteudo);
+            percorrerEmOrdem(raiz.getNoDireito());
+        }
+    }
+    public void percorrerPosOrdem(No raiz) {
+        if(raiz != null) {
+            percorrerPosOrdem(raiz.getNoEsquerdo());
+            percorrerPosOrdem(raiz.getNoDireito());
+            System.out.println(raiz.conteudo);
+        }
+    }
+    public void percorrerEmNivel(No raiz) {
+        if(raiz == null) {
+            return;
+        }
+        Queue<No> fila = new LinkedList<>();
+        fila.add(raiz);
+
+        while (!fila.isEmpty()) {
+            No nivel = fila.poll();
+            System.out.println(nivel.conteudo);
+            if(nivel.getNoEsquerdo() != null) {
+                fila.add(nivel.getNoEsquerdo());
+            }
+            if(nivel.getNoDireito() != null) {
+                fila.add(nivel.getNoDireito());
+            }
+        }
+    }
 
 
     public No getRaiz() {
