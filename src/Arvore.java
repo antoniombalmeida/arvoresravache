@@ -32,12 +32,38 @@ public class Arvore {
             }
         }
         while (raiz.getNoEsquerdo() != null) {
-            if()
-            raiz = raiz.getNoEsquerdo();
+            
+                raiz = raiz.getNoEsquerdo();
             nosArvore.add(raiz);
         }
 
         return nosArvore.size();
+    }
+    public int contarNosFolhaRecursivo(No raiz) {
+        if (raiz == null) {
+            return 0;
+        }
+
+        if (raiz.getNoEsquerdo() == null && raiz.getNoDireito() == null)
+            return 1;
+        else
+            return contarNosFolhaRecursivo(raiz.getNoEsquerdo()) + contarNosFolhaRecursivo (raiz.getNoDireito());
+    }
+    public int contarNosFolha(No raiz) {
+        if (raiz == null) return 0;
+
+        Queue<No> fila = new LinkedList<>();
+        fila.add(raiz);
+        int contador = 0;
+        while(!fila.isEmpty()) {
+            No atual = fila.poll();
+            if(atual.getNoEsquerdo() == null && atual.getNoDireito() == null) {
+                contador++;
+            }
+            if (atual.noEsquerdo != null) fila.add(atual.noEsquerdo);
+            if (atual.noDireito != null) fila.add(atual.noDireito);
+        }
+        return contador;
     }
 
     public void percorrerPreOrdem(No raiz) {
