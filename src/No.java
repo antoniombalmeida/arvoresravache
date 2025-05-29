@@ -3,11 +3,13 @@ public class No {
     public Integer conteudo;
     public No noEsquerdo;
     public No noDireito;
+    public int fatorBalanceamento;
 
-    public No(Integer conteudo, No noEsquerdo, No noDireito) {
+    public No(Integer conteudo, No noEsquerdo, No noDireito, int fatorBalanceamento) {
         this.conteudo = conteudo;
         this.noEsquerdo = noEsquerdo;
         this.noDireito = noDireito;
+        this.fatorBalanceamento = 0;
     }
 
     public Integer getConteudo() {
