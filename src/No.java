@@ -4,12 +4,14 @@ public class No {
     public No noEsquerdo;
     public No noDireito;
     public int fatorBalanceamento;
+    public int altura;
 
-    public No(Integer conteudo, No noEsquerdo, No noDireito, int fatorBalanceamento) {
+    public No(Integer conteudo, No noEsquerdo, No noDireito, int fatorBalanceamento, int altura) {
         this.conteudo = conteudo;
         this.noEsquerdo = noEsquerdo;
         this.noDireito = noDireito;
-        this.fatorBalanceamento = 0;
+        this.fatorBalanceamento = 1;
+        this.altura = altura;
     }
 
     public Integer getConteudo() {
