@@ -8,20 +8,73 @@
             this.raiz = raiz;
         }
 
-        private No inserirRecursivo(No no, int chave) {
+        int altura (No no) {
+            if (no == null) {
+                return 0;
+            }
+            return no.altura;
+        }
+        int fatorBalanceamento (No no) {
+            if (no == null) {
+                return 0;
+            }
+            return 1;
+            //ss
+        }
+        No rotacaoDireita(No y) {
+            No x = y.noEsquerdo;
+            No T2 = x.noDireito;
 
-            if (chave < no.conteudo)
-                no.noEsquerdo = inserirRecursivo(no.noEsquerdo, chave);
-            else if (chave > no.conteudo)
-                no.noDireito = inserirRecursivo(no.noDireito, chave);
+            //realizar rotacao
+            x.noDireito = y;
+            y.noEsquerdo = T2;
+
+            //atualizar alturas
+            y.altura = Math.max(altura(y.noEsquerdo), altura(y.noDireito)) + 1;
+            x.altura = Math.max(altura(x.noEsquerdo), altura(x.noDireito)) + 1;
+
+            return x;
+        }
+        No rotacaoEsquerda(No x) {
+            No y = x.noDireito;
+            No T2 = y.noEsquerdo;
+
+            //realizar rotacao
+            y.noEsquerdo= x;
+            x.noDireito = T2;
+
+            //atualizar alturas
+            x.altura = Math.max(altura(x.noEsquerdo), altura(x.noDireito)) + 1;
+            y.altura = Math.max(altura(y.noEsquerdo), altura(y.noDireito)) + 1;
+
+            return y;
+        }
+
+        private No inserirRecursivo(No no, int conteudo) {
+            if (no == null)
+                return new No(conteudo);
+
+
+            if (conteudo < no.conteudo)
+                no.noEsquerdo = inserirRecursivo(no.noEsquerdo, conteudo);
+            else if (conteudo > no.conteudo)
+                no.noDireito = inserirRecursivo(no.noDireito, conteudo);
             else
-                return no; // chave duplicada
+                return no;
 
-            // Atualiza altura
-            no.altura = 1 + Math.max(altura(no.esquerdo), altura(no.direito));
+            no.altura = 1 + Math.max(altura(no.noEsquerdo), altura(no.noDireito));
 
-            // Rebalanceia
             int balanceamento = fatorBalanceamento(no);
+            if(balanceamento > 1 && conteudo < no.noEsquerdo.conteudo) return rotacaoDireita(no);
+            if(balanceamento < -1 && conteudo > no.noDireito.conteudo) return rotacaoEsquerda(no);
+            if(balanceamento > 1 && conteudo > no.noEsquerdo.conteudo) {
+                no.noEsquerdo = rotacaoEsquerda(no.noEsquerdo);
+                return rotacaoDireita(no);
+            }
+            if(balanceamento < -1 && conteudo < no.noDireito.conteudo) {
+                no.noDireito = rotacaoDireita(no.noDireito);
+                return rotacaoEsquerda(no);
+            }
 
 
             return no;
