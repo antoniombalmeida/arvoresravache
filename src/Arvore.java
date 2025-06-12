@@ -75,8 +75,6 @@
                 no.noDireito = rotacaoDireita(no.noDireito);
                 return rotacaoEsquerda(no);
             }
-
-
             return no;
         }
 
